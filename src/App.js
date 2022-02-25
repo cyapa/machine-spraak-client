@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
 import Amplify, { API } from "aws-amplify";
+import Button from "./components/Button/Button";
 
 Amplify.configure({
   API: {
@@ -80,6 +81,7 @@ const App = () => {
     return await API.post(apiName, path, content);
   };
 
+
   return (
     <Container fluid="md">
       <Row className="justify-content-center mt-5 mb-0">
@@ -113,7 +115,12 @@ const App = () => {
             {loading && <Spinner animation="border" role="status" />}
           </div>
         </Col>
+        <Col md="10" xs="10">
+         <Button displayName="Hello" variant="secondary" onClickAction={() => alert("Hello")}/>
+        </Col>
+
       </Row>
+
     </Container>
   );
 };

@@ -1,11 +1,11 @@
 import React, { ReactElement } from "react";
 import "@testing-library/jest-dom";
-import { render, screen, findByRole } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Button from "./Button";
 import userEvent from "@testing-library/user-event";
 
-//TODO: Mock the onClickHandler and assert in below test case
-const onClickHandler = async ()=> console.log("H")
+//#TODO: Mock the onClickHandler and assert in below test case
+const onClickHandler = async ()=> console.log("Hello button clicked")
 const testComponent :ReactElement = (<Button displayName="Display Name" variant="secondary" onClickAction={onClickHandler}/>)
 
 test('Render a Button', async () => {

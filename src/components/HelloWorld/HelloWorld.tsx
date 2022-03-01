@@ -6,12 +6,12 @@ import "./HelloWorld.css";
 
 const HelloWorld = () =>{
     const [helloData,setHelloData] = useState<string>("");
-    const [helloButtonLoading,setHelloButtonLoading] =useState<boolean>(false);
+    const [helloButtonLoading,setHelloButtonLoading] = useState<boolean>(false);
   
     const handleGetDataClick = async () =>{
         setHelloButtonLoading(true);
         const apiResult = await getHelloWorldContent();    
-        setHelloData(apiResult.data || "");
+        setHelloData(apiResult.data || "Error Reading data from API");
         setHelloButtonLoading(false);
       };
 

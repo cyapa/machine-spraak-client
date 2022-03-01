@@ -24,7 +24,12 @@ Amplify.configure({
   });
 
 
-async function getHelloWorldContent():Promise<string>{
+type APIResult = Readonly<{
+  data:string| null;
+  error:string | null;
+}>;
+
+async function getHelloWorldContent():Promise<APIResult>{
     try{
       const init = {
         response: true,
@@ -33,7 +38,7 @@ async function getHelloWorldContent():Promise<string>{
         return result;
     }
     catch{
-        return "SERVER_ERROR";
+        return {data:null,error:"SERVER_ERROR"};
     }
 };
 

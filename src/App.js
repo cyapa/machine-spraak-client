@@ -5,19 +5,9 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
-import Amplify, { API } from "aws-amplify";
 import Button from "./components/Button/Button";
+import {getHelloWorldContent,postFile} from "./services/AudioAnalysisService";
 
-Amplify.configure({
-  API: {
-    endpoints: [
-      {
-        name: "machinespraak_api",
-        endpoint: process.env.REACT_APP_API_URL,
-      },
-    ],
-  },
-});
 
 const App = () => {
   const MAX_FILE_SIZE = 6000000;
@@ -27,6 +17,9 @@ const App = () => {
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const [helloData,setHelloData] = useState("");
+  const [helloButtonLoading,setHelloButtonLoading] =useState(false);
 
   const fileInputRef = useRef();
 
@@ -54,7 +47,7 @@ const App = () => {
   const handleUpload = async () => {
     try {
       setLoading(true);
-      const response = await postFile();
+      const response = await postFile(file);
       setResponse(response);
     } catch (error) {
       console.log(error);
@@ -64,23 +57,12 @@ const App = () => {
     handleReset();
   };
 
-  const postFile = async () => {
-    const apiName = "machinespraak_api";
-    const path = "/audio_analysis";
-
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("file_name", file.name);
-
-    const content = {
-      body: formData,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    };
-    return await API.post(apiName, path, content);
-  };
-
+  const handleHelloClick = async () =>{
+    setHelloButtonLoading(true);
+    const apiResult = await getHelloWorldContent();
+    setHelloData(apiResult.data);
+    setHelloButtonLoading(false);
+  }
 
   return (
     <Container fluid="md">
@@ -115,10 +97,15 @@ const App = () => {
             {loading && <Spinner animation="border" role="status" />}
           </div>
         </Col>
+      </Row>
+      <Row className="justify-content-center mt-2 mb-0">
         <Col md="10" xs="10">
-         <Button displayName="Hello" variant="secondary" onClickAction={() => alert("Hello")}/>
+          <Button isLoading={helloButtonLoading} displayName="Hello" variant="secondary" onClickAction={() =>handleHelloClick() }/>
+          <Button displayName="Clear" variant="secondary" onClickAction={() =>setHelloData("") }/>
         </Col>
-
+        <Col md="10" xs="10">
+          {`Data received form server: ${helloData}`}
+        </Col>
       </Row>
 
     </Container>

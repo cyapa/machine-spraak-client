@@ -5,9 +5,8 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
 import "./App.css";
-import Button from "./components/Button/Button";
-import {getHelloWorldContent,postFile} from "./services/AudioAnalysisService";
-
+import {postFile} from "./services/AudioAnalysisService";
+import HelloWorld from "./components/HelloWorld/HelloWorld";
 
 const App = () => {
   const MAX_FILE_SIZE = 6000000;
@@ -18,8 +17,6 @@ const App = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [helloData,setHelloData] = useState("");
-  const [helloButtonLoading,setHelloButtonLoading] =useState(false);
 
   const fileInputRef = useRef();
 
@@ -57,12 +54,7 @@ const App = () => {
     handleReset();
   };
 
-  const handleHelloClick = async () =>{
-    setHelloButtonLoading(true);
-    const apiResult = await getHelloWorldContent();
-    setHelloData(apiResult.data);
-    setHelloButtonLoading(false);
-  }
+
 
   return (
     <Container fluid="md">
@@ -99,13 +91,7 @@ const App = () => {
         </Col>
       </Row>
       <Row className="justify-content-center mt-2 mb-0">
-        <Col md="10" xs="10">
-          <Button isLoading={helloButtonLoading} displayName="Hello" variant="secondary" onClickAction={() =>handleHelloClick() }/>
-          <Button displayName="Clear" variant="secondary" onClickAction={() =>setHelloData("") }/>
-        </Col>
-        <Col md="10" xs="10">
-          {`Data received form server: ${helloData}`}
-        </Col>
+        <HelloWorld/>
       </Row>
 
     </Container>

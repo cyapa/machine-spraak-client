@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Col from "react-bootstrap/Col";
 import Button from "../Button/Button";
 import {getHelloWorldContent} from "../../services/AudioAnalysisService";
 import "./HelloWorld.css";

@@ -17,16 +17,18 @@ const HelloWorld = () =>{
 
     return(
         <>
-            <Col md="10" xs="10">
-                <div className="hello-button">
-                    <Button isLoading={helloButtonLoading} displayName="Hello World" variant="secondary" onClickAction={() =>handleGetDataClick() }/>
+            <div className="helloworld-button">
+                <Button isLoading={helloButtonLoading} displayName="Hello" variant="secondary" onClickAction={() =>handleGetDataClick() }/>
+            </div>
+            {    helloData &&        
+                <div className="helloworld-button">
+                    <Button displayName="Clear" variant="secondary" onClickAction={async () => setHelloData("") }/>
                 </div>
-                
-                <Button displayName="Clear" variant="secondary" onClickAction={async () => setHelloData("") }/>
-            </Col>
-            <Col md="10" xs="10">
+            }
+            <div>
                 {`Data received from server: ${helloData}`}
-            </Col>
+            </div>
+
         </>
     )
 };

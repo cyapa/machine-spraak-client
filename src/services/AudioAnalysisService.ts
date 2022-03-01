@@ -7,7 +7,7 @@ const RESOURCES = {
       name: "HelloWorldAPI",
       endpoint: "http://127.0.0.1:3000",
     },
-    AudioAnalysisResource:
+  AudioAnalysisResource:
     {
       name: "machinespraak_api",
       endpoint: process.env.REACT_APP_API_URL,
@@ -21,7 +21,7 @@ Amplify.configure({
         RESOURCES.HelloWorldResource
       ],
     },
-  });
+});
 
 
 type APIResult = Readonly<{
